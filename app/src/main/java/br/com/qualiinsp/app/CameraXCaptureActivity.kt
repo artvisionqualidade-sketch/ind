@@ -1,4 +1,4 @@
-package br.com.qualiinsp.app
+package br.com.INSPETOR IA.app
 
 import android.app.Activity
 import android.content.Intent
@@ -151,7 +151,7 @@ class CameraXCaptureActivity : AppCompatActivity() {
             return
         }
         val capture = videoCapture ?: run { Toast.makeText(this, "Câmera de vídeo indisponível", Toast.LENGTH_LONG).show(); return }
-        val file = File(cacheDir, "qualiinsp_video_${System.currentTimeMillis()}.mp4")
+        val file = File(cacheDir, "INSPETOR IA_video_${System.currentTimeMillis()}.mp4")
         val options = FileOutputOptions.Builder(file).build()
         try {
             recording = capture.output.prepareRecording(this, options).start(ContextCompat.getMainExecutor(this)) { event ->
@@ -242,7 +242,7 @@ class CameraXCaptureActivity : AppCompatActivity() {
 
     private fun takePhoto() {
         if (!cameraReady) return
-        val outputFile = File(cacheDir, "qualiinsp_${System.currentTimeMillis()}.jpg")
+        val outputFile = File(cacheDir, "INSPETOR IA_${System.currentTimeMillis()}.jpg")
         val options = ImageCapture.OutputFileOptions.Builder(outputFile).build()
         imageCapture.takePicture(options, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
@@ -262,14 +262,14 @@ class CameraXCaptureActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_IMAGE_PATH = "qualiinsp.image_path"
-        const val EXTRA_VIDEO_MODE = "qualiinsp.video_mode"
-        const val EXTRA_VIDEO_PATH = "qualiinsp.video_path"
-        const val EXTRA_LIVE_MODE = "qualiinsp.live_mode"
-        const val EXTRA_LIVE_MODEL = "qualiinsp.live_model"
-        const val EXTRA_LIVE_RESULT = "qualiinsp.live_result"
-        const val EXTRA_LIVE_STATUS = "qualiinsp.live_status"
-        const val EXTRA_LIVE_REASON = "qualiinsp.live_reason"
+        const val EXTRA_IMAGE_PATH = "INSPETOR IA.image_path"
+        const val EXTRA_VIDEO_MODE = "INSPETOR IA.video_mode"
+        const val EXTRA_VIDEO_PATH = "INSPETOR IA.video_path"
+        const val EXTRA_LIVE_MODE = "INSPETOR IA.live_mode"
+        const val EXTRA_LIVE_MODEL = "INSPETOR IA.live_model"
+        const val EXTRA_LIVE_RESULT = "INSPETOR IA.live_result"
+        const val EXTRA_LIVE_STATUS = "INSPETOR IA.live_status"
+        const val EXTRA_LIVE_REASON = "INSPETOR IA.live_reason"
     }
 }
 
