@@ -1,4 +1,4 @@
-package br.com.INSPETOR IA.app
+package br.com.qualiinsp.app
 
 import android.Manifest
 import android.app.Activity
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         }
         root.addView(subtitle)
         val hero=Button(this).apply {
-            text="◎     INSPECIONAR\Iniciar inspeção pela câmera"
+            text="◎     INSPECIONAR\nIniciar inspeção pela câmera"
             isAllCaps=false; gravity=Gravity.CENTER_VERTICAL; textSize=17f
             typeface=Typeface.create("sans-serif-medium",Typeface.NORMAL)
             setTextColor(Color.WHITE); background=rounded(Color.rgb(5,25,48),16,Color.rgb(0,115,235))
@@ -132,8 +132,7 @@ class MainActivity : AppCompatActivity() {
         addHomeCardRow("◷  HISTÓRICO","Inspeções realizadas","▤  RELATÓRIOS","Análises e indicadores",
             {showHistory()},{showHistory()})
         val settings=Button(this).apply {
-            text="⚙  CONFIGURAÇÕES
-            Regras, critérios e sinalização"
+            text="⚙  CONFIGURAÇÕES\nRegras, critérios e sinalização"
             isAllCaps=false; gravity=Gravity.CENTER_VERTICAL; textSize=14f
             setTextColor(Color.rgb(228,238,250)); background=rounded(Color.rgb(13,19,28),14,Color.rgb(35,57,82))
             setPadding(dp(16),dp(12),dp(16),dp(12)); minHeight=dp(68); stateListAnimator=null
@@ -152,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         val row=LinearLayout(this).apply { orientation=LinearLayout.HORIZONTAL }
         fun card(title:String,sub:String,action:()->Unit):Button {
             return Button(this).apply {
-                text="$title\\n$sub"; isAllCaps=false; gravity=Gravity.CENTER
+                text="$title\n$sub"; isAllCaps=false; gravity=Gravity.CENTER
                 textSize=13f; typeface=Typeface.create("sans-serif-medium",Typeface.NORMAL)
                 setTextColor(Color.rgb(230,240,252))
                 background=rounded(Color.rgb(9,15,24),14,Color.rgb(22,62,105))
@@ -169,7 +168,7 @@ class MainActivity : AppCompatActivity() {
         root=base("Produtos e padrões")
         button("＋ Cadastrar produto"){showRegister()}
         val ps=store.products(); if(ps.isEmpty()) addText("Nenhum produto cadastrado.")
-        ps.forEach{p->button("${p.code} — ${p.name}\Defeitos configurados: ${p.defects.size}"){selectedProduct=p;showProductDetail(p)}}
+        ps.forEach{p->button("${p.code} — ${p.name}\nDefeitos configurados: ${p.defects.size}"){selectedProduct=p;showProductDetail(p)}}
         back()
     }
 
@@ -188,7 +187,7 @@ class MainActivity : AppCompatActivity() {
     private fun showProductDetail(p0:Product){
         val p=store.getProduct(p0.id) ?: p0
         root=base("${p.code} — ${p.name}")
-        addText("Padrão: ${if(p.standardFile.isNotEmpty()) "cadastrado" else "não cadastrado"}\Defeitos configurados: ${p.defects.size}")
+        addText("Padrão: ${if(p.standardFile.isNotEmpty()) "cadastrado" else "não cadastrado"}\nDefeitos configurados: ${p.defects.size}")
         button("＋ Configurar novo defeito"){showDefectEditor(p,null)}
         if(p.defects.isEmpty()) addText("Ainda não há defeitos configurados. Crie um defeito e depois ensine a IA com exemplos reais.")
         p.defects.forEach{d->button("${if(d.critical) "🔴" else "🟡"} ${d.name}\nExemplos: ${d.samples.size} • Tolerância ou Limite: ${d.threshold}"){showDefectEditor(p,d)}}
