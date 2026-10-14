@@ -293,7 +293,25 @@ class MainActivity : AppCompatActivity() {
     private fun fmt(v:Float)=String.format(Locale.US,"%.1f%%",v.coerceIn(0f,1f)*100f)
 
     private fun showHistory(){root=base("Histórico de inspeções");val xs=store.inspections().takeLast(100).reversed();if(xs.isEmpty())addText("Nenhuma inspeção registrada.");xs.forEach{addText("${it.date} | ${it.code} | ${it.status}\n${it.reason}\nProduto: ${it.name}\nLote: ${it.lot} • Máquina: ${it.machine}\n")};button("Compartilhar relatório"){share(store.export())};back()}
-    private fun showRules(){root=base("Regras e sinalização");addText("🔵 AGUARDANDO: câmera pronta / aguardando captura.\🟢 CONFORME: O produto foi identificado e passou nos testes sem apresentar defeitos.\🔴 NÃO CONFORME: O defeito configurado atingiu o nível crítico de tolerância.\🟡 ATENÇÃO NECESSÁRIA: este produto apresenta baixa confiança e requer avaliação para confirmar sua conformidade.");addText("Os limites são configuráveis por defeito. A IA deve ser calibrada com amostras reais, iluminação e posição controladas. O documento-base também determina que a câmera não seja tratada como substituta automática de paquímetro, micrômetro, balança ou teste de encaixe sem validação específica.",14);back()}
+    
+private fun showRules() {
+    root = base("Regras e sinalização")
+
+    addText(
+        "🔵 AGUARDANDO: câmera pronta / aguardando captura.\n" +
+        "🟢 CONFORME: o produto foi identificado e passou nos testes sem apresentar defeitos.\n" +
+        "🔴 NÃO CONFORME: o defeito configurado atingiu o nível crítico de tolerância.\n" +
+        "🟡 ATENÇÃO NECESSÁRIA: este produto apresenta baixa confiança e requer avaliação para confirmar sua conformidade."
+    )
+
+    addText(
+        "Os limites são configuráveis por defeito. A IA deve ser calibrada com amostras reais, iluminação e posição controladas. O documento-base também determina que a câmera não seja tratada como substituta automática de paquímetro, micrômetro, balança ou teste de encaixe sem validação específica.",
+        14
+    )
+
+    back()
+}
+
 
     private fun launchLiveInspection(){
         if(checkSelfPermission(Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){liveRequested=true;permission.launch(Manifest.permission.CAMERA);return}
