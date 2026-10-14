@@ -1,4 +1,4 @@
-package br.com.qualiinsp.app
+package br.com.INSPETOR IA.app
 
 import android.Manifest
 import android.app.Activity
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         root=base("Inspeção de qualidade")
         // Dashboard industrial inspirado na referência enviada.
         val brand=TextView(this).apply {
-            text="◉  QualiInsp"; textSize=30f; letterSpacing=-0.02f
+            text="◉  INSPETOR IA"; textSize=30f; letterSpacing=-0.02f
             setTextColor(Color.WHITE); typeface=Typeface.create("sans-serif",Typeface.BOLD)
             val span=android.text.SpannableString(text)
             span.setSpan(android.text.style.ForegroundColorSpan(Color.rgb(0,132,255)), 8, text.length, 0)
@@ -113,13 +113,13 @@ class MainActivity : AppCompatActivity() {
         }
         root.addView(brand)
         val subtitle=TextView(this).apply {
-            text="CONTROLE DE QUALIDADE  /  ESTAÇÃO DE INSPEÇÃO"
+            text="CONTROLE DE QUALIDADE / ESTAÇÃO DE INSPEÇÃO"
             textSize=10f; letterSpacing=.08f; setTextColor(Color.rgb(135,157,182))
             setPadding(dp(4),0,0,dp(16))
         }
         root.addView(subtitle)
         val hero=Button(this).apply {
-            text="◎     INSPECIONAR\\n        Iniciar inspeção pela câmera"
+            text="◎     INSPECIONAR\Iniciar inspeção pela câmera"
             isAllCaps=false; gravity=Gravity.CENTER_VERTICAL; textSize=17f
             typeface=Typeface.create("sans-serif-medium",Typeface.NORMAL)
             setTextColor(Color.WHITE); background=rounded(Color.rgb(5,25,48),16,Color.rgb(0,115,235))
@@ -132,7 +132,8 @@ class MainActivity : AppCompatActivity() {
         addHomeCardRow("◷  HISTÓRICO","Inspeções realizadas","▤  RELATÓRIOS","Análises e indicadores",
             {showHistory()},{showHistory()})
         val settings=Button(this).apply {
-            text="⚙  CONFIGURAÇÕES     ›\\n     Regras, critérios e sinalização"
+            text="⚙  CONFIGURAÇÕES
+            Regras, critérios e sinalização"
             isAllCaps=false; gravity=Gravity.CENTER_VERTICAL; textSize=14f
             setTextColor(Color.rgb(228,238,250)); background=rounded(Color.rgb(13,19,28),14,Color.rgb(35,57,82))
             setPadding(dp(16),dp(12),dp(16),dp(12)); minHeight=dp(68); stateListAnimator=null
@@ -404,7 +405,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun addTitle(t:String) {
         val eyebrow=TextView(this).apply {
-            text="QUALIDADE INDUSTRIAL  /  QUALIINSP"
+            text="QUALIDADE INDUSTRIAL  /  INSPETOR IA"
             textSize=11f; letterSpacing=.12f; setTextColor(Color.rgb(0,145,255)); typeface=Typeface.DEFAULT_BOLD
             setPadding(dp(2),dp(2),0,dp(7))
         }
@@ -470,7 +471,7 @@ data class Inspection(val date:String,val code:String,val name:String,val status
 data class Meta(val lot:String,val machine:String,val mold:String,val cavity:String,val obs:String)
 
 class Store(private val a:android.content.Context=MainActivityContext.ctx){
- private val sp=a.getSharedPreferences("qualiinsp_ml_v3",0)
+ private val sp=a.getSharedPreferences("INSPETOR IA_ml_v3",0)
  fun products():MutableList<Product>{val arr=JSONArray(sp.getString("products","[]"));val out=mutableListOf<Product>();for(i in 0 until arr.length()){val o=arr.getJSONObject(i);val ds=mutableListOf<Defect>();val da=o.optJSONArray("defects")?:JSONArray();for(j in 0 until da.length()){val d=da.getJSONObject(j);val ss=mutableListOf<List<Float>>();val sa=d.optJSONArray("samples")?:JSONArray();for(k in 0 until sa.length())ss.add(readFeatures(sa.getJSONArray(k)));ds.add(Defect(d.getString("id"),d.getString("name"),d.optString("rule"),d.optBoolean("critical"),d.optDouble("threshold",.35).toFloat(),ss))};val oks=mutableListOf<List<Float>>();val oa=o.optJSONArray("okSamples")?:JSONArray();for(j in 0 until oa.length())oks.add(readFeatures(oa.getJSONArray(j)));out.add(Product(o.getString("id"),o.getString("code"),o.getString("name"),o.optString("color"),ds,oks,o.optString("standardFile"),readFeaturesNullable(o.optJSONArray("standardFeatures"))))};return out}
  private fun readFeatures(a:JSONArray):List<Float>{val l=mutableListOf<Float>();for(i in 0 until a.length())l.add(a.getDouble(i).toFloat());return l}
  private fun readFeaturesNullable(a:JSONArray?):List<Float>{return if(a==null)emptyList() else readFeatures(a)}
